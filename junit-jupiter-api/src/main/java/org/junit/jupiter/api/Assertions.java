@@ -25,6 +25,7 @@ import java.util.stream.Stream;
 import org.apiguardian.api.API;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.function.ThrowingSupplier;
+import org.junit.platform.commons.util.StringUtils;
 import org.opentest4j.MultipleFailuresError;
 
 /**
@@ -135,6 +136,9 @@ public class Assertions {
 	 * }</pre>
 	 */
 	public static <V> V fail(String message) {
+		if (StringUtils.isBlank(message)) {
+			AssertionUtils.fail("Assertion.fail() called");
+		}
 		AssertionUtils.fail(message);
 		return null; // appeasing the compiler: this line will never be executed.
 	}
@@ -147,6 +151,9 @@ public class Assertions {
 	 * generic return type {@code V}.
 	 */
 	public static <V> V fail(String message, Throwable cause) {
+		if (StringUtils.isBlank(message)) {
+			AssertionUtils.fail("Assertion.fail() called", cause);
+		}
 		AssertionUtils.fail(message, cause);
 		return null; // appeasing the compiler: this line will never be executed.
 	}
